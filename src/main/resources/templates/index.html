@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta charset="utf-8">
+		<title>Blog App</title>
+	</head>
+
+	<body>
+		<h1>Blogs</h1>
+		<table>
+			<thead>
+				<tr>
+					<th>Title</th>
+					<th>Content</th>
+					<th colspan="3"></th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="blog : ${blogs}">
+					<td>[[${blog.title}]]</td>
+					<td>[[${blog.content}]]</td>
+					<td>
+						<form th:action="@{/blog/show/{id}(id=${blog.id})}" method="get">
+							<input type="submit" value="Show">
+						</form>					
+					</td>
+					<td>
+						<form th:action="@{/blog/edit/{id}(id=${blog.id})}" method="get">
+							<input type="submit" value="Edit">
+						</form>					
+					</td>
+					<td>
+						<form th:action="@{/blog/delete}" method="post">
+							<input type="hidden" name="id" th:value="${blog.id}">
+							<input type="submit" value="Delete">
+						</form>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+		<br>
+		<a th:href="@{/blog/new}">New Blog</a>
+	</body>
+</html>
